@@ -300,8 +300,8 @@
                 `;
             }
 
-            const systemPrompt = "You are an expert cryptocurrency and cybersecurity news aggregator. You MUST use Google Search to find real, current news articles regarding Monero (XMR), privacy coins, cryptographic updates, security exploits, hacks, or regulatory news. Return a strictly valid JSON array of 5 recent news thread items. Each item must be an object with keys: 'title', 'source', 'time', 'summary', and 'link'. Ensure accurate real-world context using Google Search grounding. Provide the actual verified article URL in the 'link' field if found via search.";
-            const userQuery = "Search Google for the latest news about Monero XMR privacy, hacks, exploits, or regulatory updates. Return actual recent news items as a structured JSON array.";
+            const systemPrompt = "You are an expert cryptocurrency and cybersecurity news aggregator. You MUST use Google Search to find real, current news articles regarding Monero (XMR), privacy coins, cryptographic updates, security exploits, hacks, or regulatory news. Return a strictly valid JSON array of 6 recent news thread items. Each item must be an object with keys: 'title', 'source', 'time', 'summary', and 'link'. Ensure accurate real-world context using Google Search grounding. Provide the actual verified article URL in the 'link' field if found via search.";
+            const userQuery = "Search Google for the latest news about Monero XMR privacy, hacks, exploits, security vulnerabilities, or regulatory updates. Return at least 6 actual recent news items as a structured JSON array.";
 
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
@@ -368,7 +368,6 @@
                             if (searchSources[idx] && searchSources[idx].uri) {
                                 item.link = searchSources[idx].uri;
                                 if (searchSources[idx].title) {
-                                    // Extract clean domain name as source if available
                                     try {
                                         const urlObj = new URL(searchSources[idx].uri);
                                         item.source = urlObj.hostname.replace('www.', '');
@@ -392,7 +391,8 @@
 
             refreshIcon.classList.remove('animate-spin');
 
-            if (!success || newsItems.length === 0) {
+            // Fallback robust items if list is empty
+            if (!success || !newsItems || newsItems.length === 0) {
                 newsItems = [
                     {
                         title: "Monero Network Privacy & Decentralization Analysis",
@@ -400,6 +400,20 @@
                         time: "Recent",
                         summary: "Exploring recent developments in peer-to-peer transaction privacy, wallet security, and cryptographic resilience across global node operators.",
                         link: "https://www.getmonero.org"
+                    },
+                    {
+                        title: "Cryptocurrency Security and Privacy Coin Vulnerability Reports",
+                        source: "bleepingcomputer.com",
+                        time: "Recent",
+                        summary: "An overview of emerging cryptographic threats, malware targeting digital wallet extensions, and blockchain privacy protocols.",
+                        link: "https://www.bleepingcomputer.com"
+                    },
+                    {
+                        title: "Regulatory Landscapes for Privacy-Enhancing Technologies",
+                        source: "coindesk.com",
+                        time: "Recent",
+                        summary: "Global regulatory developments impacting decentralized finance, shielded transactions, and non-custodial cryptographic tools.",
+                        link: "https://www.coindesk.com"
                     }
                 ];
             }
@@ -417,8 +431,8 @@
                 const threadCard = document.createElement('div');
                 threadCard.className = "relative flex items-start space-x-4 p-6 rounded-2xl bg-cardbg border border-neutral-800/80 hover:border-neutral-700 transition-all shadow-xl";
                 
-                // Assign a thematic image based on index or keyword
-                const imageUrl = `https://picsum.photos/seed/xmr${index + 10}/600/300`;
+                // Assign a thematic image based on index
+                const imageUrl = `https://picsum.photos/seed/xmr${index + 20}/600/300`;
 
                 threadCard.innerHTML = `
                     <!-- Thread Line connector -->
@@ -437,7 +451,7 @@
                             <span class="text-xs text-neutral-500">@xanonymouscat</span>
                             <span class="text-xs text-neutral-600">•</span>
                             <span class="text-xs text-neutral-400 font-medium">${item.time || 'Recent'}</span>
-                            <span class="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">${item.source || 'XMR Wire'}</span>
+                            <span class="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 truncate max-w-[120px]">${item.source || 'XMR Wire'}</span>
                         </div>
 
                         <h3 class="font-bold text-white text-base mb-2 hover:text-accent transition-colors">
@@ -456,8 +470,8 @@
                                 <img src="${imageUrl}" alt="News Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x300/121212/FF6600?text=XMR+Intel'">
                                 <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent opacity-80"></div>
                                 <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-neutral-300">
-                                    <span class="font-mono bg-black/60 backdrop-blur px-2 py-1 rounded text-accent">${item.source || 'Verified Source'}</span>
-                                    <span class="text-[11px] text-neutral-400"><i class="fa-solid fa-shield text-accent mr-1"></i> Privacy Intelligence</span>
+                                    <span class="font-mono bg-black/60 backdrop-blur px-2 py-1 rounded text-accent truncate max-w-[185px]">${item.source || 'Verified Source'}</span>
+                                    <span class="text-[11px] text-neutral-400 shrink-0"><i class="fa-solid fa-shield text-accent mr-1"></i> Privacy Intelligence</span>
                                 </div>
                             </div>
                         </div>
