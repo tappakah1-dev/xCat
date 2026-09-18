@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$XANONYMOUS | The Shadow Meme Coin on Solana</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#050505',
+                        cardbg: '#121212',
+                        accent: '#FF6600',
+                        accenthover: '#ff8533',
+                        xmrcolor: '#F26822'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #ededed;
+        }
+        .glow-orange {
+            box-shadow: 0 0 25px rgba(242, 104, 34, 0.25);
+        }
+        .glow-orange-lg {
+            box-shadow: 0 0 50px rgba(242, 104, 34, 0.4);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #404040;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-accent selection:text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-darkbg/80 backdrop-blur-md border-b border-neutral-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://pbs.twimg.com/profile_images/2100707619409170432/jxGnzio6_400x400.jpg" alt="Logo" class="w-10 h-10 rounded-full border-2 border-accent object-cover" onerror="this.src='https://placehold.co/100x100/121212/FF6600?text=X'">
+                <span class="font-bold text-xl tracking-wider text-white">$XCAT</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-neutral-400">
+                <a href="#about" class="hover:text-accent transition-colors">About</a>
+                <a href="#tokenomics" class="hover:text-accent transition-colors">Tokenomics</a>
+                <a href="#news" class="hover:text-accent transition-colors text-accent flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-accent animate-ping"></span> Live XMR Feed</a>
+                <a href="#community" class="hover:text-accent transition-colors">Community</a>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a href="https://x.com/xanonymouscat" target="_blank" class="p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-accent text-neutral-300 hover:text-white transition-all">
+                    <i class="fa-brands fa-x-twitter text-lg"></i>
+                </a>
+                <a href="#news" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-semibold text-sm bg-accent hover:bg-accenthover text-white transition-all shadow-lg shadow-accent/20">
+                    Explore Feed
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner Section -->
+    <header class="relative w-full overflow-hidden border-b border-neutral-800/60 bg-neutral-950">
+        <div class="absolute inset-0 z-0 opacity-40">
+            <img src="https://pbs.twimg.com/profile_banners/2100707153438793729/1789683095/1500x500" alt="Banner" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/1500x500/050505/262626?text=XANONYMOUS'">
+            <div class="absolute inset-0 bg-gradient-to-t from-darkbg via-darkbg/60 to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-5xl mx-auto px-4 py-20 md:py-32 text-center flex flex-col items-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-semibold uppercase tracking-widest mb-6">
+                <i class="fa-solid fa-shield-halved"><span>Solana Privacy Movement • Ticker: $XCAT</span></i>
+            </div>
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 uppercase">
+                The Shadow of <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-amber-500">Solana ($XCAT)</span>
+            </h1>
+            <p class="text-neutral-400 text-lg sm:text-xl max-w-2xl mb-8">
+                Privacy is not a crime; it's a fundamental right. Merging the speed of Solana with uncompromising Monero-grade privacy ethos and intelligence reporting under $XCAT.
+            </p>
+
+            <!-- Contract Address Box -->
+            <div class="w-full max-w-2xl bg-cardbg/90 backdrop-blur border border-neutral-800 p-4 rounded-2xl glow-orange mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3 overflow-hidden text-left w-full sm:w-auto">
+                    <div class="p-3 bg-neutral-900 rounded-xl text-accent">
+                        <i class="fa-solid fa-fingerprint text-xl"></i>
+                    </div>
+                    <div class="truncate">
+                        <div class="text-xs text-neutral-500 font-semibold uppercase">Contract Address (CA)</div>
+                        <div id="ca-text" class="text-xs sm:text-sm font-mono text-white truncate select-all">HhRCWrgTZnTtHqop5wRLyD2ps1UNgKhnG8WhVQNMSTNK</div>
+                    </div>
+                </div>
+                <button onclick="copyCA()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-accent hover:bg-accenthover text-white font-semibold text-sm transition-all flex items-center justify-center gap-2 shrink-0">
+                    <i class="fa-regular fa-copy"></i>
+                    <span id="copy-btn-text">Copy CA</span>
+                </button>
+            </div>
+
+            <!-- Quick Action Links -->
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="https://x.com/xanonymouscat" target="_blank" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 font-semibold text-white transition-all flex items-center gap-2">
+                    <i class="fa-brands fa-x-twitter"></i> Official X (Twitter)
+                </a>
+                <a href="#news" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 font-semibold text-white transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-newspaper text-accent"></i> Live XMR News Feed
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About / Stats Section -->
+    <section id="about" class="py-20 bg-darkbg border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-3xl bg-cardbg border border-neutral-800/80 hover:border-accent/50 transition-all group">
+                    <div class="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Solana Velocity</h3>
+                    <p class="text-neutral-400 text-sm leading-relaxed">
+                        Lightning-fast execution, microscopic fees, and deep liquidity pools tailored for maximum market velocity and meme momentum.
+                    </p>
+                </div>
+                <div class="p-8 rounded-3xl bg-cardbg border border-neutral-800/80 hover:border-accent/50 transition-all group">
+                    <div class="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user-secret"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Monero Alignment</h3>
+                    <p class="text-neutral-400 text-sm leading-relaxed">
+                        Inspired by the impenetrable privacy standard of Monero (XMR). Dedicated to tracking, analyzing, and educating on digital sovereignty.
+                    </p>
+                </div>
+                <div class="p-8 rounded-3xl bg-cardbg border border-neutral-800/80 hover:border-accent/50 transition-all group">
+                    <div class="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-radar"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Live Intel Feed</h3>
+                    <p class="text-neutral-400 text-sm leading-relaxed">
+                        Integrated real-time scanner parsing global intelligence feeds regarding Monero privacy developments, regulatory updates, and security disclosures.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics -->
+    <section id="tokenomics" class="py-20 bg-neutral-950 border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Tokenomics</h2>
+            <p class="text-neutral-400 max-w-xl mx-auto mb-16">Fair, transparent, and built for the shadows. Zero complications.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl bg-cardbg border border-neutral-800">
+                    <div class="text-xs uppercase text-neutral-500 font-semibold mb-2">Total Supply</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono">1,000,000,000</div>
+                    <div class="text-xs text-accent mt-1">1 Billion Tokens</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardbg border border-neutral-800">
+                    <div class="text-xs uppercase text-neutral-500 font-semibold mb-2">Tax Structure</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono">0% / 0%</div>
+                    <div class="text-xs text-accent mt-1">Zero Buy / Zero Sell Tax</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardbg border border-neutral-800">
+                    <div class="text-xs uppercase text-neutral-500 font-semibold mb-2">Liquidity Pool</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono">Burned</div>
+                    <div class="text-xs text-accent mt-1">Permanent Safety</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardbg border border-neutral-800">
+                    <div class="text-xs uppercase text-neutral-500 font-semibold mb-2">Contract Ownership</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono">Renounced</div>
+                    <div class="text-xs text-accent mt-1">Community Controlled</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live XMR News Thread Feed Section -->
+    <section id="news" class="py-20 bg-darkbg">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-neutral-800">
+                <div>
+                    <div class="flex items-center gap-2 text-accent text-xs font-bold uppercase tracking-wider mb-1">
+                        <span class="relative flex h-2.5 w-2.5">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+                        </span>
+                        Live Intelligence Scanner
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">XMR Privacy & Hack Wire</h2>
+                </div>
+                <button onclick="fetchXMRNews()" id="refresh-btn" class="px-4 py-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-xs font-semibold text-neutral-300 hover:text-white transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right" id="refresh-icon"></i> Refresh Wire
+                </button>
+            </div>
+
+            <!-- Thread Container -->
+            <div id="thread-container" class="space-y-6">
+                <!-- Loading State Initial -->
+                <div id="loading-state" class="p-8 rounded-2xl bg-cardbg border border-neutral-800 text-center">
+                    <div class="inline-block w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p class="text-neutral-400 text-sm font-medium">Scanning global live feeds for Monero privacy updates & security incidents...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community & Footer -->
+    <footer id="community" class="bg-neutral-950 border-t border-neutral-900 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-xl mx-auto mb-12">
+                <img src="https://pbs.twimg.com/profile_images/2100707619409170432/jxGnzio6_400x400.jpg" alt="Logo" class="w-16 h-16 rounded-full border-2 border-accent object-cover mx-auto mb-4" onerror="this.src='https://placehold.co/100x100/121212/FF6600?text=X'">
+                <h3 class="text-2xl font-bold text-white mb-2">Join the $XCAT Shadow Movement</h3>
+                <p class="text-neutral-400 text-sm mb-6">Follow the official channels for announcements, raids, and updates.</p>
+                <div class="flex items-center justify-center gap-4">
+                    <a href="https://x.com/xanonymouscat" target="_blank" class="px-6 py-3 rounded-xl bg-accent hover:bg-accenthover text-white font-semibold text-sm transition-all flex items-center gap-2 shadow-lg shadow-accent/20">
+                        <i class="fa-brands fa-x-twitter text-lg"></i> Follow @xanonymouscat ($XCAT)
+                    </a>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
+                <div>© 2026 $XCAT on Solana. All rights reserved. Meme coin for entertainment and privacy advocacy.</div>
+                <div class="flex space-x-6">
+                    <a href="#about" class="hover:text-accent transition-colors">Privacy</a>
+                    <a href="#tokenomics" class="hover:text-accent transition-colors">Terms</a>
+                    <a href="#news" class="hover:text-accent transition-colors">Wire Feed</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Copy CA Functionality
+        function copyCA() {
+            const caText = document.getElementById('ca-text').innerText;
+            const btnText = document.getElementById('copy-btn-text');
+            
+            // Fallback copy method for iframe restrictions
+            const textArea = document.createElement("textarea");
+            textArea.value = caText;
+            textArea.style.position = "fixed";  // Avoid scrolling to bottom
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    btnText.innerText = 'Copied!';
+                    setTimeout(() => {
+                        btnText.innerText = 'Copy CA';
+                    }, 2000);
+                } else {
+                    alert('Failed to copy CA');
+                }
+            } catch (err) {
+                console.err('Fallback copy failed', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Fetch Live XMR News via Gemini API with Google Search Grounding
+        async function fetchXMRNews() {
+            const container = document.getElementById('thread-container');
+            const refreshIcon = document.getElementById('refresh-icon');
+            
+            refreshIcon.classList.add('animate-spin');
+            
+            // Show loading state if container is empty
+            if (container.children.length === 0 || document.getElementById('loading-state')) {
+                container.innerHTML = `
+                    <div id="loading-state" class="p-8 rounded-2xl bg-cardbg border border-neutral-800 text-center">
+                        <div class="inline-block w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin mb-4"></div>
+                        <p class="text-neutral-400 text-sm font-medium">Scanning live Google Search results for real Monero privacy & security news...</p>
+                    </div>
+                `;
+            }
+
+            const systemPrompt = "You are an expert cryptocurrency and cybersecurity news aggregator. You MUST use Google Search to find real, current news articles regarding Monero (XMR), privacy coins, cryptographic updates, security exploits, hacks, or regulatory news. Return a strictly valid JSON array of 5 recent news thread items. Each item must be an object with keys: 'title', 'source', 'time', 'summary', and 'link'. Ensure accurate real-world context using Google Search grounding. Provide the actual verified article URL in the 'link' field if found via search.";
+            const userQuery = "Search Google for the latest news about Monero XMR privacy, hacks, exploits, or regulatory updates. Return actual recent news items as a structured JSON array.";
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                "title": { "type": "STRING" },
+                                "source": { "type": "STRING" },
+                                "time": { "type": "STRING" },
+                                "summary": { "type": "STRING" },
+                                "link": { "type": "STRING" }
+                            },
+                            "propertyOrdering": ["title", "source", "time", "summary", "link"]
+                        }
+                    }
+                }
+            };
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            let newsItems = [];
+
+            // Exponential backoff retry mechanism
+            let retries = 3;
+            let delay = 1000;
+            let success = false;
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+                    
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const jsonText = candidate.content.parts[0].text;
+                        newsItems = JSON.parse(jsonText);
+                        
+                        // Extract grounding sources to link directly to real scraped URLs
+                        let searchSources = [];
+                        if (candidate.groundingMetadata && candidate.groundingMetadata.groundingAttributions) {
+                            searchSources = candidate.groundingMetadata.groundingAttributions
+                                .map(attr => ({ uri: attr.web?.uri, title: attr.web?.title }))
+                                .filter(s => s.uri && s.title);
+                        }
+
+                        // Map search sources to items to ensure real links
+                        newsItems = newsItems.map((item, idx) => {
+                            if (searchSources[idx] && searchSources[idx].uri) {
+                                item.link = searchSources[idx].uri;
+                                if (searchSources[idx].title) {
+                                    // Extract clean domain name as source if available
+                                    try {
+                                        const urlObj = new URL(searchSources[idx].uri);
+                                        item.source = urlObj.hostname.replace('www.', '');
+                                    } catch(e) {}
+                                }
+                            } else if (!item.link || item.link === '#' || item.link.startsWith('/')) {
+                                item.link = 'https://x.com/xanonymouscat';
+                            }
+                            return item;
+                        });
+
+                        success = true;
+                        break;
+                    }
+                } catch (e) {
+                    console.debug(`Attempt ${i+1} failed, retrying in ${delay}ms...`, e);
+                    await new Promise(res => setTimeout(res, delay));
+                    delay *= 2;
+                }
+            }
+
+            refreshIcon.classList.remove('animate-spin');
+
+            if (!success || newsItems.length === 0) {
+                newsItems = [
+                    {
+                        title: "Monero Network Privacy & Decentralization Analysis",
+                        source: "getmonero.org",
+                        time: "Recent",
+                        summary: "Exploring recent developments in peer-to-peer transaction privacy, wallet security, and cryptographic resilience across global node operators.",
+                        link: "https://www.getmonero.org"
+                    }
+                ];
+            }
+
+            renderThread(newsItems);
+        }
+
+        // Render Thread UI resembling a Twitter thread
+        function renderThread(items) {
+            const container = document.getElementById('thread-container');
+            container.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const isLast = index === items.length - 1;
+                const threadCard = document.createElement('div');
+                threadCard.className = "relative flex items-start space-x-4 p-6 rounded-2xl bg-cardbg border border-neutral-800/80 hover:border-neutral-700 transition-all shadow-xl";
+                
+                // Assign a thematic image based on index or keyword
+                const imageUrl = `https://picsum.photos/seed/xmr${index + 10}/600/300`;
+
+                threadCard.innerHTML = `
+                    <!-- Thread Line connector -->
+                    ${!isLast ? '<div class="absolute left-9 top-16 bottom-[-24px] w-0.5 bg-neutral-800"></div>' : ''}
+                    
+                    <!-- Avatar -->
+                    <div class="relative shrink-0">
+                        <img src="https://pbs.twimg.com/profile_images/2100707619409170432/jxGnzio6_400x400.jpg" alt="Author" class="w-10 h-10 rounded-full border border-accent object-cover" onerror="this.src='https://placehold.co/100x100/121212/FF6600?text=X'">
+                        <span class="absolute -bottom-1 -right-1 bg-accent text-white text-[10px] font-bold px-1 rounded-full">${index + 1}</span>
+                    </div>
+
+                    <!-- Content Body -->
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center space-x-2 mb-1">
+                            <span class="font-bold text-white text-sm">XAnonymous Intel</span>
+                            <span class="text-xs text-neutral-500">@xanonymouscat</span>
+                            <span class="text-xs text-neutral-600">•</span>
+                            <span class="text-xs text-neutral-400 font-medium">${item.time || 'Recent'}</span>
+                            <span class="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">${item.source || 'XMR Wire'}</span>
+                        </div>
+
+                        <h3 class="font-bold text-white text-base mb-2 hover:text-accent transition-colors">
+                            <a href="${item.link}" target="_blank" class="flex items-center gap-2">
+                                ${item.title} <i class="fa-solid fa-arrow-up-right-from-square text-xs text-neutral-500"></i>
+                            </a>
+                        </h3>
+
+                        <p class="text-neutral-300 text-sm leading-relaxed mb-4">
+                            ${item.summary}
+                        </p>
+
+                        <!-- Attached News Card / Image Thumbnail -->
+                        <div class="rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900 mb-4 group">
+                            <div class="h-40 overflow-hidden relative">
+                                <img src="${imageUrl}" alt="News Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x300/121212/FF6600?text=XMR+Intel'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent opacity-80"></div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-neutral-300">
+                                    <span class="font-mono bg-black/60 backdrop-blur px-2 py-1 rounded text-accent">${item.source || 'Verified Source'}</span>
+                                    <span class="text-[11px] text-neutral-400"><i class="fa-solid fa-shield text-accent mr-1"></i> Privacy Intelligence</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thread Actions Bar -->
+                        <div class="flex items-center justify-between text-neutral-500 text-xs pt-2 border-t border-neutral-800/60">
+                            <a href="${item.link}" target="_blank" class="hover:text-accent flex items-center gap-1.5 transition-colors">
+                                <i class="fa-regular fa-comment"></i> <span>Discuss thread</span>
+                            </a>
+                            <a href="${item.link}" target="_blank" class="hover:text-accent flex items-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-retweet"></i> <span>Retweet</span>
+                            </a>
+                            <a href="${item.link}" target="_blank" class="hover:text-accent flex items-center gap-1.5 transition-colors">
+                                <i class="fa-regular fa-heart"></i> <span>Like</span>
+                            </a>
+                            <a href="${item.link}" target="_blank" class="hover:text-accent flex items-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> <span>Read Full Article</span>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(threadCard);
+            });
+        }
+
+        // Initialize live news feed on load
+        window.onload = function() {
+            fetchXMRNews();
+        };
+    </script>
+</body>
+</html>
