@@ -79,8 +79,8 @@
                     <i class="fa-solid fa-arrow-right-arrow-left"></i>
                     Trade XCAT
                 </a>
-                <a href="https://x.com/xanonymouscat" target="_blank" class="p-3 rounded-xl bg-black border border-neutral-700 hover:bg-neutral-900 hover:border-accent text-white transition-all group shadow-lg shadow-accent/10 hover:shadow-accent/30">
-                    <i class="fa-brands fa-x-twitter text-xl group-hover:text-accent transition-colors"></i>
+                <a href="https://x.com/xanonymouscat" target="_blank" class="hidden sm:flex items-center justify-center w-12 h-12 rounded-xl bg-black border-2 border-gray-700 hover:border-white text-white transition-all group shadow-lg hover:shadow-white/20">
+                    <i class="fa-brands fa-x-twitter text-2xl group-hover:scale-110 transition-transform"></i>
                 </a>
                 <a href="#news" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-semibold text-sm bg-accent hover:bg-accenthover text-white transition-all shadow-lg shadow-accent/20">
                     Explore Feed
@@ -316,6 +316,44 @@
             });
         }
 
+        // Sort news items by freshness (newest first)
+        function sortNewsByFreshness(items) {
+            const timeOrder = {
+                'hour ago': 0, 'hours ago': 0,
+                'day ago': 1, 'days ago': 1,
+                'week ago': 7, 'weeks ago': 7,
+                'month ago': 30, 'months ago': 30,
+                'year ago': 365, 'years ago': 365,
+                'recent': 0.5, 'just now': -1, 'now': -1
+            };
+
+            return items.sort((a, b) => {
+                const timeA = a.time || 'recent';
+                const timeB = b.time || 'recent';
+
+                let priorityA = 999;
+                let priorityB = 999;
+
+                for (const [key, value] of Object.entries(timeOrder)) {
+                    if (timeA.toLowerCase().includes(key)) {
+                        const match = timeA.match(/(\d+)/);
+                        priorityA = value * (match ? parseInt(match[1]) : 1);
+                        break;
+                    }
+                }
+
+                for (const [key, value] of Object.entries(timeOrder)) {
+                    if (timeB.toLowerCase().includes(key)) {
+                        const match = timeB.match(/(\d+)/);
+                        priorityB = value * (match ? parseInt(match[1]) : 1);
+                        break;
+                    }
+                }
+
+                return priorityA - priorityB;
+            });
+        }
+
         // Fetch XMR News from multiple sources
         async function fetchXMRNews() {
             const container = document.getElementById('thread-container');
@@ -344,9 +382,11 @@
                                   "title": "headline",
                                   "summary": "2-3 sentence summary",
                                   "source": "source name",
-                                  "time": "relative time like '2 days ago'",
+                                  "time": "relative time like '2 days ago' or '1 hour ago'",
                                   "link": "url if known, otherwise use https://www.getmonero.org"
                                 }
+                                
+                                **IMPORTANT: Return items SORTED BY FRESHNESS - NEWEST FIRST (most recent to oldest)**
                                 
                                 Return ONLY a JSON array of news objects, no additional text. Make sure to include:
                                 - Latest XMR price movements
@@ -411,6 +451,9 @@
                     throw new Error("No valid news items after validation");
                 }
 
+                // Sort by freshness - ensure newest first
+                newsItems = sortNewsByFreshness(newsItems);
+
                 renderThread(newsItems);
                 loadingIndicator.classList.add('hidden');
                 container.classList.remove('hidden');
@@ -418,8 +461,15 @@
             } catch (error) {
                 console.error("Error fetching news:", error);
                 
-                // Fallback to static content
+                // Fallback to static content - SORTED FRESHEST FIRST
                 const fallbackItems = [
+                    {
+                        title: "Monero Development Update: New Cryptographic Improvements",
+                        source: "github.com/monero-project",
+                        time: "1 day ago",
+                        summary: "Community developers release updated specifications for enhanced ring size flexibility and improved transaction verification mechanisms across network nodes worldwide.",
+                        link: "https://github.com/monero-project"
+                    },
                     {
                         title: "Monero Network Privacy Audit Highlights Cryptographic Resilience",
                         source: "getmonero.org",
@@ -428,18 +478,18 @@
                         link: "https://www.getmonero.org"
                     },
                     {
+                        title: "Cryptocurrency Security Report: Privacy Coins Show Resilience",
+                        source: "bleepingcomputer.com",
+                        time: "3 days ago",
+                        summary: "Annual cybersecurity review demonstrates that privacy-enhanced cryptocurrencies maintain security against emerging threats. Monero's architecture shows resistance to advanced attack vectors.",
+                        link: "https://www.bleepingcomputer.com"
+                    },
+                    {
                         title: "Privacy Coin Regulation Landscape Shifts Across Major Markets",
                         source: "coindesk.com",
                         time: "3 days ago",
                         summary: "Recent regulatory developments in Asia and Europe impact privacy-enhanced digital assets. Decentralized exchanges report increased focus on non-custodial solutions and zero-knowledge proofs.",
                         link: "https://www.coindesk.com"
-                    },
-                    {
-                        title: "Monero Development Update: New Cryptographic Improvements",
-                        source: "github.com/monero-project",
-                        time: "1 day ago",
-                        summary: "Community developers release updated specifications for enhanced ring size flexibility and improved transaction verification mechanisms across network nodes worldwide.",
-                        link: "https://github.com/monero-project"
                     },
                     {
                         title: "Blockchain Privacy Infrastructure Sees Institutional Adoption",
@@ -456,13 +506,6 @@
                         link: "https://www.wired.com"
                     },
                     {
-                        title: "XMR Exchange Listings Expand in Asia-Pacific Region",
-                        source: "cointelegraph.com",
-                        time: "1 week ago",
-                        summary: "Major cryptocurrency exchanges in Southeast Asia add Monero trading pairs amid growing regional interest in privacy-preserving digital assets and decentralized finance protocols.",
-                        link: "https://www.cointelegraph.com"
-                    },
-                    {
                         title: "Privacy-by-Design Becomes Standard in New Blockchain Protocols",
                         source: "techcrunch.com",
                         time: "6 days ago",
@@ -470,14 +513,17 @@
                         link: "https://www.techcrunch.com"
                     },
                     {
-                        title: "Cryptocurrency Security Report: Privacy Coins Show Resilience",
-                        source: "bleepingcomputer.com",
-                        time: "3 days ago",
-                        summary: "Annual cybersecurity review demonstrates that privacy-enhanced cryptocurrencies maintain security against emerging threats. Monero's architecture shows resistance to advanced attack vectors.",
-                        link: "https://www.bleepingcomputer.com"
+                        title: "XMR Exchange Listings Expand in Asia-Pacific Region",
+                        source: "cointelegraph.com",
+                        time: "1 week ago",
+                        summary: "Major cryptocurrency exchanges in Southeast Asia add Monero trading pairs amid growing regional interest in privacy-preserving digital assets and decentralized finance protocols.",
+                        link: "https://www.cointelegraph.com"
                     }
                 ];
 
+                // Sort fallback items by freshness
+                fallbackItems = sortNewsByFreshness(fallbackItems);
+                
                 renderThread(fallbackItems);
                 loadingIndicator.classList.add('hidden');
                 container.classList.remove('hidden');
